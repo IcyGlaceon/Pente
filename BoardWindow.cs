@@ -2,28 +2,42 @@ using System.Diagnostics;
 
 namespace Pente
 {
-    public partial class Form1 : Form
+    public partial class BoardWindow : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-            buttonCreation();
-        }
-
         int player = 1;
 
-        int[,] grid = new int[19, 19];
+        public static int[,] grid = new int[0, 0];
 
-        public void buttonCreation()
+        public BoardWindow()
         {
-            for (int i = 0; i < 361; i++)
+            InitializeComponent();
+            boardCreation();
+
+        }
+
+        public void boardCreation()
+        {
+            TableLayoutPanel Table = new TableLayoutPanel();
+            Table.RowCount = grid.GetLength(0);
+            Table.ColumnCount = grid.GetLength(1);
+
+            Table.Location = new Point(50, 50);
+
+            Table.AutoSize = true;
+
+            this.Controls.Add(Table);
+
+            for (int i = 0; i < grid.Length; i++)
             {
                 Button button = new Button();
                 button.Tag = i.ToString();
                 button.Text = i.ToString();
                 button.Location = new Point(i, i);
+                button.AutoSize = true;
+                button.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                button.AutoEllipsis = false;
                 button.Click += Pente_Click;
-                PenteTB.Controls.Add(button);
+                Table.Controls.Add(button);
             }
         }
 
@@ -55,6 +69,11 @@ namespace Pente
                     player = 1;
                 }
             }
+        }
+
+        public int[,] SetGrid(int x, int y)
+        {
+            return grid = new int[x, y];
         }
 
     }
