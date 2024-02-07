@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Pente
 {
@@ -7,6 +8,8 @@ namespace Pente
         int player = 1;
 
         public static int[,] grid = new int[0, 0];
+
+        TableLayoutPanel Table = new TableLayoutPanel();
 
         public BoardWindow()
         {
@@ -17,7 +20,6 @@ namespace Pente
 
         public void boardCreation()
         {
-            TableLayoutPanel Table = new TableLayoutPanel();
             Table.RowCount = grid.GetLength(0);
             Table.ColumnCount = grid.GetLength(1);
 
@@ -31,11 +33,12 @@ namespace Pente
             {
                 Button button = new Button();
                 button.Tag = i.ToString();
-                button.Text = i.ToString();
+                button.Text = " ";
                 button.Location = new Point(i, i);
                 button.AutoSize = true;
                 button.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 button.AutoEllipsis = false;
+                button.BackColor = Color.Transparent;
                 button.Click += Pente_Click;
                 Table.Controls.Add(button);
             }
@@ -59,12 +62,22 @@ namespace Pente
                 if (player == 1)
                 {
                     button.BackColor = Color.Black;
+
+                    // Change 2D Ary
+                    TableLayoutPanelCellPosition pos = Table.GetPositionFromControl(button);
+                    grid[pos.Column, pos.Row] = 1;
+
                     player = 2;
                     textBox1.Text = "Player 2's Turn";
                 }
                 else if (player == 2)
                 {
                     button.BackColor = Color.Gray;
+
+                    // Change 2D Ary
+                    TableLayoutPanelCellPosition pos = Table.GetPositionFromControl(button);
+                    grid[pos.Column, pos.Row] = 2;
+
                     textBox1.Text = "Player 1's Turn";
                     player = 1;
                 }
@@ -76,5 +89,18 @@ namespace Pente
             return grid = new int[x, y];
         }
 
+        public void CheckWin()
+        {
+            int row = grid.GetLength(0);
+            int col = grid.GetLength(1);
+
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    
+                }
+            }
+        }
     }
 }
