@@ -204,7 +204,7 @@ namespace Pente
                         while (rtlWin < 5 && !ChainBroken)
                         {
                             strRow -= 1;
-                            strCol -= 1;
+                            strCol += 1;
                             if (grid[strRow, strCol] == player)
                             {
                                 rtlWin++;

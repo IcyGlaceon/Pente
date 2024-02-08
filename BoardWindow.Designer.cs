@@ -34,7 +34,7 @@
             // textBox1
             // 
             textBox1.Font = new Font("Segoe UI", 20F);
-            textBox1.Location = new Point(176, 29);
+            textBox1.Location = new Point(784, 12);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(188, 43);
             textBox1.TabIndex = 1;

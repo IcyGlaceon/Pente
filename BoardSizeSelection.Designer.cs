@@ -34,6 +34,7 @@
             // 
             // Size
             // 
+            Size.DropDownStyle = ComboBoxStyle.DropDownList;
             Size.FormattingEnabled = true;
             Size.Items.AddRange(new object[] { "9", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39" });
             Size.Location = new Point(365, 176);
