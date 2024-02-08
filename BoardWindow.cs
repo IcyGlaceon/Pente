@@ -67,7 +67,10 @@ namespace Pente
                     TableLayoutPanelCellPosition pos = Table.GetPositionFromControl(button);
                     grid[pos.Column, pos.Row] = 1;
 
-                    CheckWin();
+                    if (CheckWin())
+                    {
+                        
+                    }
 
                     player = 2;
                     textBox1.Text = "Player 2's Turn";
@@ -80,7 +83,10 @@ namespace Pente
                     TableLayoutPanelCellPosition pos = Table.GetPositionFromControl(button);
                     grid[pos.Column, pos.Row] = 2;
 
-                    CheckWin();
+                    if (CheckWin())
+                    {
+                        
+                    }
 
                     textBox1.Text = "Player 1's Turn";
                     player = 1;
@@ -158,9 +164,13 @@ namespace Pente
                             strCol += 1;
                             // out of bounds check needs to be added
 
+                            if (strRow > grid.GetLength(0) - 1 || strCol > grid.GetLength(1) - 1)
+                            {
+                                break;
+                            }
+
                             if (grid[strRow, strCol] == player)
                             {
-
                                 ltrWin++;
                             }
                             else
@@ -204,7 +214,13 @@ namespace Pente
                         while (rtlWin < 5 && !ChainBroken)
                         {
                             strRow -= 1;
-                            strCol -= 1;
+                            strCol += 1;
+
+                            if (strRow < 0 || strCol > grid.GetLength(1) - 1)
+                            {
+                                break;
+                            }
+
                             if (grid[strRow, strCol] == player)
                             {
                                 rtlWin++;
