@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Numerics;
 using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 
@@ -10,9 +11,13 @@ namespace Pente
 
         int seconds = 0;
 
+        bool AI = true;
+
         public static int[,] grid = new int[0, 0];
 
         TableLayoutPanel Table = new TableLayoutPanel();
+
+        Random rand = new Random();
 
         public BoardWindow()
         {
@@ -98,6 +103,49 @@ namespace Pente
                     player = 1;
                 }
             }
+
+            if(AI && player == 2)
+            {
+                bool ValidPlace = false;
+                int x = 0;
+                int y = 0;
+
+                while(!ValidPlace)
+                {
+                    Debug.WriteLine("Loop Entered");
+
+                    x = rand.Next(0, grid.GetLength(0));
+                    y = rand.Next(0, grid.GetLength(1));
+
+                    
+                    bool buttonFound = false;
+                    if (grid[x, y] == 0)
+                    {
+                        Debug.WriteLine("Valid Grid Spot");
+                        grid[x, y] = 2;
+                        
+                        foreach (Control control in Table.Controls)
+                        {
+                            if (control is Button btn && Table.GetRow(btn) == x && Table.GetColumn(btn) == y)
+                            {
+                                btn.BackColor = Color.Gray;
+                                Debug.WriteLine(Table.GetCellPosition(control));
+                                buttonFound = true;
+                                break;
+                            }
+                        }
+
+                        if (!buttonFound)
+                        {
+                            Debug.WriteLine("No button found at grid position: " + x + ", " + y);
+                        }
+
+                        ValidPlace = true;
+                        PlayerTurnLabel.Text = "Player 1's Turn";
+                        player = 1;
+                    }
+                }
+            }
         }
 
         public int[,] SetGrid(int x, int y)
@@ -123,7 +171,6 @@ namespace Pente
                         symbolsInRow++;
                         if (symbolsInRow == 5)
                         {
-                            Debug.WriteLine(";)");
                             return true;
                         }
                     }
@@ -145,7 +192,6 @@ namespace Pente
                         symbolsInCol++;
                         if (symbolsInCol == 5)
                         {
-                            Debug.WriteLine(":)");
                             return true;
                         }
                     }
@@ -192,12 +238,11 @@ namespace Pente
 
                         if (ltrWin == 5)
                         {
-                            Debug.WriteLine(ltrWin);
+                            return true;
                         }
                         else if (ChainBroken)
                         {
                             ltrWin = 0;
-                            //Debug.WriteLine("L");
                         }
                     }
                     else
@@ -244,12 +289,11 @@ namespace Pente
 
                         if (rtlWin == 5)
                         {
-                            Debug.WriteLine(rtlWin);
+                            return true;
                         }
                         else if (ChainBroken)
                         {
                             rtlWin = 0;
-                            //Debug.WriteLine("L");
                         }
                     }
                     else
