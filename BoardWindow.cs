@@ -52,7 +52,6 @@ namespace Pente
             PlayTimer.Start();
             seconds = 60;
 
-
             Button button = sender as Button;
 
             for (int i = 0; i < grid.Length; i++)
@@ -286,7 +285,7 @@ namespace Pente
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine("C:\\Users\\CarterS\\Desktop\\Pente Folder", "WriteLines.txt")))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(@"..\..\..\SaveData\", "WriteLines.txt")))
             {
                 outputFile.WriteLine("Grid Length: " + grid.GetLength(0));
                 outputFile.WriteLine("Current Player: " + player);

@@ -15,6 +15,7 @@ namespace Pente
     public partial class StartScreen : Form
     {
         int[,] SaveGrid;
+        int GridLength;
 
         public StartScreen()
         {
@@ -32,19 +33,20 @@ namespace Pente
         {
             BoardWindow board = new BoardWindow();
 
-            foreach (string line in File.ReadAllLines("C:\\Users\\CarterS\\Desktop\\Pente Folder\\WriteLines.txt"))
+            foreach (string line in File.ReadAllLines(@"..\..\..\SaveData\WriteLines.txt"))
             {
                 string[] stuff = line.Split(",");
 
                 foreach (string SaveData in stuff)
                 {
-                    if(SaveData.Contains("Grid Length:"))
+                    if (SaveData.Contains("Grid Length:"))
                     {
-                        int GridLength = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
-                        
+                        GridLength = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
+
                         board.SetGrid(GridLength, GridLength);
                         //SaveGrid = new int[GridLength, GridLength];
-                    } else if(SaveData.Contains("Current Player:"))
+                    }
+                    else if (SaveData.Contains("Current Player:"))
                     {
                         int CurrentPlayer = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
 
@@ -52,11 +54,17 @@ namespace Pente
                     }
                     else
                     {
-                       //do grid data
+                        for (int i = 0; i < GridLength; i++)
+                        {
+                            for (int j = 0; j < GridLength; j++)
+                            {
+                                SaveGrid[i, j] = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
+                            }
+                        }
                     }
                 }
-
             }
+            Debug.Write(SaveGrid.Length);
         }
     }
 }
