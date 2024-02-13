@@ -28,24 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
+            components = new System.ComponentModel.Container();
+            PlayerTurnLabel = new Label();
+            PlayTimer = new System.Windows.Forms.Timer(components);
+            TimerLabel = new Label();
+            SaveButton = new Button();
             SuspendLayout();
             // 
-            // textBox1
+            // PlayerTurnLabel
             // 
-            textBox1.Font = new Font("Segoe UI", 20F);
-            textBox1.Location = new Point(784, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(188, 43);
-            textBox1.TabIndex = 1;
-            textBox1.Text = "Player 1's Turn";
+            PlayerTurnLabel.AutoSize = true;
+            PlayerTurnLabel.Font = new Font("Segoe UI", 21F);
+            PlayerTurnLabel.Location = new Point(773, 9);
+            PlayerTurnLabel.Name = "PlayerTurnLabel";
+            PlayerTurnLabel.Size = new Size(199, 38);
+            PlayerTurnLabel.TabIndex = 2;
+            PlayerTurnLabel.Text = "Player 1's Turn";
+            // 
+            // PlayTimer
+            // 
+            PlayTimer.Tick += timer1_Tick;
+            // 
+            // TimerLabel
+            // 
+            TimerLabel.AutoSize = true;
+            TimerLabel.Location = new Point(682, 28);
+            TimerLabel.Name = "TimerLabel";
+            TimerLabel.Size = new Size(59, 15);
+            TimerLabel.TabIndex = 3;
+            TimerLabel.Text = "Time left: ";
+            // 
+            // SaveButton
+            // 
+            SaveButton.Location = new Point(573, 20);
+            SaveButton.Name = "SaveButton";
+            SaveButton.Size = new Size(75, 23);
+            SaveButton.TabIndex = 4;
+            SaveButton.Text = "Save";
+            SaveButton.UseVisualStyleBackColor = true;
+            SaveButton.Click += SaveButton_Click;
             // 
             // BoardWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(984, 961);
-            Controls.Add(textBox1);
+            Controls.Add(SaveButton);
+            Controls.Add(TimerLabel);
+            Controls.Add(PlayerTurnLabel);
             Name = "BoardWindow";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pente";
@@ -54,6 +84,9 @@
         }
 
         #endregion
-        private TextBox textBox1;
+        private Label PlayerTurnLabel;
+        private System.Windows.Forms.Timer PlayTimer;
+        private Label TimerLabel;
+        private Button SaveButton;
     }
 }

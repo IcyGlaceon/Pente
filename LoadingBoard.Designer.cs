@@ -1,6 +1,6 @@
 ﻿namespace Pente
 {
-    partial class StartScreen
+    partial class LoadingBoard
     {
         /// <summary>
         /// Required designer variable.
@@ -28,45 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            NewGameButton = new Button();
-            LoadButton = new Button();
             SuspendLayout();
             // 
-            // NewGameButton
-            // 
-            NewGameButton.Location = new Point(357, 151);
-            NewGameButton.Name = "NewGameButton";
-            NewGameButton.Size = new Size(75, 23);
-            NewGameButton.TabIndex = 0;
-            NewGameButton.Text = "New Game";
-            NewGameButton.UseVisualStyleBackColor = true;
-            NewGameButton.Click += NewGame_Click;
-            // 
-            // LoadButton
-            // 
-            LoadButton.Location = new Point(357, 180);
-            LoadButton.Name = "LoadButton";
-            LoadButton.Size = new Size(75, 23);
-            LoadButton.TabIndex = 1;
-            LoadButton.Text = "Load";
-            LoadButton.UseVisualStyleBackColor = true;
-            LoadButton.Click += LoadButton_Click;
-            // 
-            // StartScreen
+            // LoadingBoard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(LoadButton);
-            Controls.Add(NewGameButton);
-            Name = "StartScreen";
-            Text = "StartScreen";
+            Name = "LoadingBoard";
+            Text = "LoadingBoard";
+            Load += LoadingBoard_Load;
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button NewGameButton;
-        private Button LoadButton;
     }
 }

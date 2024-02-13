@@ -37,7 +37,8 @@
             Size.DropDownStyle = ComboBoxStyle.DropDownList;
             Size.FormattingEnabled = true;
             Size.Items.AddRange(new object[] { "9", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39" });
-            Size.Location = new Point(365, 176);
+            Size.Location = new Point(9, 9);
+            Size.Margin = new Padding(0);
             Size.Name = "Size";
             Size.Size = new Size(121, 23);
             Size.TabIndex = 0;
@@ -45,7 +46,9 @@
             // 
             // BoardButton
             // 
-            BoardButton.Location = new Point(394, 236);
+            BoardButton.Anchor = AnchorStyles.None;
+            BoardButton.Location = new Point(331, 346);
+            BoardButton.Margin = new Padding(0);
             BoardButton.Name = "BoardButton";
             BoardButton.Size = new Size(75, 23);
             BoardButton.TabIndex = 1;
@@ -57,11 +60,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1022, 664);
+            ClientSize = new Size(682, 494);
             Controls.Add(BoardButton);
             Controls.Add(Size);
             Name = "BoardSizeSelection";
             Text = "Size";
+            Load += BoardSizeSelection_Load;
+            SizeChanged += BoardSizeSelection_SizeChanged;
             ResumeLayout(false);
         }
 

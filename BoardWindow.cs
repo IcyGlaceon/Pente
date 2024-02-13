@@ -1,11 +1,14 @@
 using System.Diagnostics;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace Pente
 {
     public partial class BoardWindow : Form
     {
         int player = 1;
+
+        int seconds = 0;
 
         public static int[,] grid = new int[0, 0];
 
@@ -15,8 +18,8 @@ namespace Pente
         {
             InitializeComponent();
             boardCreation();
-
         }
+
 
         public void boardCreation()
         {
@@ -46,6 +49,10 @@ namespace Pente
 
         private void Pente_Click(object sender, EventArgs e)
         {
+            PlayTimer.Start();
+            seconds = 60;
+
+
             Button button = sender as Button;
 
             for (int i = 0; i < grid.Length; i++)
@@ -69,11 +76,11 @@ namespace Pente
 
                     if (CheckWin())
                     {
-                        
+
                     }
 
                     player = 2;
-                    textBox1.Text = "Player 2's Turn";
+                    PlayerTurnLabel.Text = "Player 2's Turn";
                 }
                 else if (player == 2)
                 {
@@ -85,10 +92,10 @@ namespace Pente
 
                     if (CheckWin())
                     {
-                        
+
                     }
 
-                    textBox1.Text = "Player 1's Turn";
+                    PlayerTurnLabel.Text = "Player 1's Turn";
                     player = 1;
                 }
             }
@@ -97,6 +104,11 @@ namespace Pente
         public int[,] SetGrid(int x, int y)
         {
             return grid = new int[x, y];
+        }
+
+        public int SetPlayer(int play)
+        {
+            return player = play;
         }
 
         public bool CheckWin()
@@ -174,7 +186,7 @@ namespace Pente
                                 ltrWin++;
                             }
                             else
-                            { 
+                            {
                                 ChainBroken = true;
                             }
                         }
@@ -251,5 +263,44 @@ namespace Pente
 
             return false;
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TimerLabel.Text = "Time left: " + seconds--.ToString();
+            if (seconds <= 0)
+            {
+                if (player == 1)
+                {
+                    PlayerTurnLabel.Text = "Player 2's Turn";
+                    seconds = 60;
+                    player = 2;
+                }
+                else if (player == 2)
+                {
+                    PlayerTurnLabel.Text = "Player 1's Turn";
+                    seconds = 60;
+                    player = 1;
+                }
+            }
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine("C:\\Users\\CarterS\\Desktop\\Pente Folder", "WriteLines.txt")))
+            {
+                outputFile.WriteLine("Grid Length: " + grid.GetLength(0));
+                outputFile.WriteLine("Current Player: " + player);
+                for (int i = 0; i < grid.GetLength(0); i++)
+                {
+                    for (int j = 0; j < grid.GetLength(1); j++)
+                    {
+                        outputFile.Write("{0} ", grid[i, j]);
+                    }
+                    outputFile.WriteLine();
+                }
+            }
+        }
+
+        
     }
 }
