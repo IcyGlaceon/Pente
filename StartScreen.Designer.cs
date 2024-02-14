@@ -30,6 +30,7 @@
         {
             NewGameButton = new Button();
             LoadButton = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // NewGameButton
@@ -52,11 +53,22 @@
             LoadButton.UseVisualStyleBackColor = true;
             LoadButton.Click += LoadButton_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(425, 289);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // StartScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(LoadButton);
             Controls.Add(NewGameButton);
             Name = "StartScreen";
@@ -68,5 +80,6 @@
 
         private Button NewGameButton;
         private Button LoadButton;
+        private Button button1;
     }
 }

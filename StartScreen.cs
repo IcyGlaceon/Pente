@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,6 +33,7 @@ namespace Pente
         private void LoadButton_Click(object sender, EventArgs e)
         {
             BoardWindow board = new BoardWindow();
+            List<string> gridPostion = new List<string>();
 
             foreach (string line in File.ReadAllLines(@"..\..\..\SaveData\WriteLines.txt"))
             {
@@ -43,28 +45,44 @@ namespace Pente
                     {
                         GridLength = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
 
+                        Debug.WriteLine("Found grid lenght");
+
                         board.SetGrid(GridLength, GridLength);
-                        //SaveGrid = new int[GridLength, GridLength];
+                        SaveGrid = new int[GridLength, GridLength];
                     }
                     else if (SaveData.Contains("Current Player:"))
                     {
                         int CurrentPlayer = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
 
+                        Debug.WriteLine("Found current player");
+
                         board.SetPlayer(CurrentPlayer);
                     }
                     else
                     {
-                        for (int i = 0; i < GridLength; i++)
-                        {
-                            for (int j = 0; j < GridLength; j++)
-                            {
-                                SaveGrid[i, j] = Convert.ToInt32(Regex.Match(SaveData, @"\d+").Value);
-                            }
-                        }
+                        gridPostion.Add(SaveData);
                     }
                 }
             }
-            Debug.Write(SaveGrid.Length);
+
+            for (int i = 0; i < GridLength; i++)
+            {
+                string[] values = gridPostion[i].Split(' ');
+                for (int j = 0; j < GridLength; j++)
+                {
+                    SaveGrid[i, j] = int.Parse(values[j]);
+                }
+            }
+           
+
+            board.SetGridPostion(SaveGrid);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BoardWindow board = new BoardWindow();
+            board.Loaded(true);
+            board.Show();
         }
     }
 }

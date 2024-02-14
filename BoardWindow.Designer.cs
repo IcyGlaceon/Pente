@@ -79,6 +79,7 @@
             Name = "BoardWindow";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pente";
+            VisibleChanged += BoardWindow_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -13,6 +13,8 @@ namespace Pente
 
         bool AI = true;
 
+        bool isLoaded = false;
+
         public static int[,] grid = new int[0, 0];
 
         TableLayoutPanel Table = new TableLayoutPanel();
@@ -104,26 +106,28 @@ namespace Pente
                 }
             }
 
-            if(AI && player == 2)
+            if (AI && player == 2)
             {
                 bool ValidPlace = false;
                 int x = 0;
                 int y = 0;
 
-                while(!ValidPlace)
+                while (!ValidPlace)
                 {
                     Debug.WriteLine("Loop Entered");
 
                     x = rand.Next(0, grid.GetLength(0));
                     y = rand.Next(0, grid.GetLength(1));
 
-                    
+
                     bool buttonFound = false;
                     if (grid[x, y] == 0)
                     {
                         Debug.WriteLine("Valid Grid Spot");
                         grid[x, y] = 2;
-                        
+
+                        Table.GetControlFromPosition(x, y).BackColor = Color.Gray;
+
                         foreach (Control control in Table.Controls)
                         {
                             if (control is Button btn && Table.GetRow(btn) == x && Table.GetColumn(btn) == y)
@@ -155,7 +159,18 @@ namespace Pente
 
         public int SetPlayer(int play)
         {
+            isLoaded = true;
             return player = play;
+        }
+
+        public int[,] SetGridPostion(int[,] newGrid)
+        {
+            return grid = newGrid;
+        }
+
+        public bool Loaded(bool load)
+        {
+            return isLoaded = load;
         }
 
         public bool CheckWin()
@@ -344,6 +359,24 @@ namespace Pente
             }
         }
 
-        
+        private void BoardWindow_Load(object sender, EventArgs e)
+        {
+            if (isLoaded)
+            {
+                for (int i = 0; i < grid.GetLength(0); i++)
+                {
+                    for(int j = 0; j < grid.GetLength(1); j++)
+                    {
+                        if (grid[i,j] == 1)
+                        {
+                            Table.GetControlFromPosition(i, j).BackColor = Color.Black;
+                        } else if (grid[i,j] == 2)
+                        {
+                            Table.GetControlFromPosition(i, j).BackColor = Color.Gray;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
